@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services\Dto;
+namespace App\Dtos;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
- * DataTransferObject Classe que serve para transferência de dados entre o Service e o Controller
+ * GenericDto Classe que serve para transferência de dados entre o Service e o Controller
  *
  */
-class DataTransferObject extends ServiceProvider
+class GenericDto extends ServiceProvider
 {
     private $success;
     private $include;
