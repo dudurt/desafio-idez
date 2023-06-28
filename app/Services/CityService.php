@@ -3,10 +3,10 @@
 namespace App\Services;
 
 use App\Services\Dto\DataTransferObject;
-use App\Models\County;
+use App\Models\City;
 use Illuminate\Http\Request;
 
-class CountyService
+class CityService
 {
     protected $dto;
 

@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Services\CountyService;
-use App\Http\Requests\Api\County\ListCounty;
+use App\Services\CityService;
+use App\Http\Requests\Api\City\ListCity;
 
-class CountyController
+class CityController
 {
     protected $service;
 
     public function __construct()
     {
-        $this->service = new CountyService();
+        $this->service = new CityService();
     }
 
     public function list(Request $request)

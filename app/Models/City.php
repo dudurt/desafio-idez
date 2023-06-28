@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
-class County extends Authenticatable
+class City extends Authenticatable
 {
     use HasApiTokens, HasFactory;
 
-    public static $expirationTime = "Padrão Estoque";
+    public static $expirationTime = 60;
 
     protected $fillable = [
         'name',

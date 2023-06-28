@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\County;
+namespace App\Http\Requests\Api\City;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ListCounty extends FormRequest
+class ListCity extends FormRequest
 {
     public function authorize()
     {
