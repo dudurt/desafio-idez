@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Redis;
 use Cache;
 use App\Dtos\GenericDto;
 use App\Models\City;
@@ -21,17 +22,23 @@ class CityService
 
     public function listByState($stateAcronym) {
         $key = "ListByState$stateAcronym";
+        $lastReq = Cache::get($key);
 
-        $this->dto->data = Cache::remember(
+        var_dump($this->mainProvider->searchCityByState($stateAcronym));die;
+        Cache::remember(
             $key,
             (new City())->expirationTime, 
             function() use ($stateAcronym) {
-                return $this->mainProvider->searchCityByState($stateAcronym);
+                return $this->mainProvider->searchCityByState($stateAcronym)->getData();
             }
         );
 
-        $this->dto->setSuccess(true);
-        $this->dto->setMessage("Teste dto certo");
+        $newRetData = Cache::get($key);
+        if ($newRetData !== null) {
+            $this->dto->successMessage('Municípios encontrados com sucesso!', $newRetData);
+        } else {
+            $this->dto->errorMessage('Não foi possível consultar os municípios!');
+        }
         return $this->dto;
     }
 

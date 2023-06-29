@@ -14,14 +14,14 @@ class ListCity extends FormRequest
     public function rules()
     {
         return [
-            "data" => "required",
+            "siglaUf" => "required",
         ];
     }
 
     public function messages()
     {
         return [
-            "data.required" => "O campo 'data' é obrigatorio!",
+            "siglaUf.required" => "O campo 'siglaUf' é obrigatorio, sendo ele a sigla de algum estado!",
         ];
     }
 }
