@@ -4,7 +4,7 @@ use App\Http\Controllers\Api\CityController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('city')->group(function () {
-    Route::get('list', [CityController::class, 'list']);
+    Route::get('list', [CityController::class, 'listByState']);
 });
 
 Route::any('/', function () {

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Services\CityService;
-use App\Http\Requests\Api\City\ListCity;
+use App\Http\Requests\Api\City\ListCityByState;
 
 class CityController
 {
@@ -15,8 +14,8 @@ class CityController
         $this->service = new CityService();
     }
 
-    public function list(Request $request)
+    public function listByState(ListCityByState $request)
     {
-        return $this->service->list($request)->getMessageDTO();
+        return $this->service->listByState($request->siglaUf)->getMessageDTO();
     }
 }

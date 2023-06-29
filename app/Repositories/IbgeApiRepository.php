@@ -24,7 +24,7 @@ class IbgeApiRepository
                 'Requisição feita com sucesso!',
                 Http::get(
                     "{$this->url}/localidades/estados/$stateAcronym/municipios"
-                )->body()
+                )
             );
         } catch (Exception $exception) {
             return $this->dto->errorMessage($exception->getMessage());
