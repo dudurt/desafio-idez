@@ -5,6 +5,7 @@ namespace App\Repositories;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use App\Dtos\GenericDto;
+use App\Dtos\CityDto;
 
 class IbgeApiRepository
 {
@@ -20,28 +21,39 @@ class IbgeApiRepository
     public function searchCityByState($stateAcronym)
     {
         try {
-            return $this->dto->successMessage(
+            $arrCity = Http::get(
+                "{$this->url}/localidades/estados/$stateAcronym/municipios"
+            )->json();
+
+            $data = array();
+            foreach($arrCity as $city) {
+                array_push($data, (array) new CityDto($city['id'], $city['nome']));
+            }
+
+            $this->dto->successMessage(
                 'Requisição feita com sucesso!',
-                Http::get(
-                    "{$this->url}/localidades/estados/$stateAcronym/municipios"
-                )
+                $data
             );
+            return $this->dto;
         } catch (Exception $exception) {
-            return $this->dto->errorMessage($exception->getMessage());
+            $this->dto->errorMessage($exception->getMessage());
+            return $this->dto;
         }
     }
 
     public function searchAllStates()
     {
         try {
-            return $this->dto->successMessage(
+            $this->dto->successMessage(
                 'Requisição feita com sucesso!',
                 Http::get(
                     "{$this->url}/localidades/estados"
-                )
+                )->json()
             );
+            return $this->dto;
         } catch (Exception $exception) {
-            return $this->dto->errorMessage($exception->getMessage());
+            $this->dto->errorMessage($exception->getMessage());
+            return $this->dto;
         }
     }
 }
