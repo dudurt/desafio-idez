@@ -10,7 +10,7 @@ class City extends Authenticatable
 {
     use HasApiTokens, HasFactory;
 
-    public static $expirationTime = 60;
+    public $expirationTime = 60;
 
     protected $fillable = [
         'name',
