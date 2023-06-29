@@ -24,7 +24,7 @@ class CityService
         $key = "ListByState$stateAcronym";
         $lastReq = Cache::get($key);
 
-        var_dump($this->mainProvider->searchCityByState($stateAcronym));die;
+        var_dump($this->mainProvider->searchCityByState($stateAcronym)->getData());die;
         Cache::remember(
             $key,
             (new City())->expirationTime, 
