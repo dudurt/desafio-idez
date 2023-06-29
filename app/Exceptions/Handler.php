@@ -40,22 +40,22 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, $exception)
+    public function render($request, Throwable | ValidationException | ModelNotFoundException $exception)
     {
         $data = null;
         switch (get_class($exception)) {
-            case 'MethodNotAllowedHttpException':
+            case MethodNotAllowedHttpException::class:
                 $code = 400;
                 $message = $exception->getMessage();
                 $internalCode = '4002';
                 break;
-            case 'Illuminate\Validation\ValidationException':
+            case ValidationException::class:
                 $code = 400;
                 $message = $exception->getMessage();
                 $data = $exception->errors();
                 $internalCode = '4001';
                 break;
-            case 'Illuminate\Database\Eloquent\ModelNotFoundException':
+            case ModelNotFoundException::class:
                 $code = 404;
                 $message = 'Param not found';
                 $params = explode("\\", $exception->getModel());
@@ -63,12 +63,12 @@ class Handler extends ExceptionHandler
                 $data = [array_pop($params)  => $exception->getIds()];
                 $internalCode = 4000;
                 break;
-            case 'NotFoundHttpException':
+            case NotFoundHttpException::class:
                 $code = '404';
                 $message = $exception->getMessage();
                 $internalCode = 4000;
                 break;
-            case 'Illuminate\Validation\UnauthorizedException':
+            case UnauthorizedException::class:
                 $code = '401';
                 $message = !empty($exception->getMessage()) ? $exception->getMessage()  : 'Unauthorized';
                 $internalCode = 4003;
