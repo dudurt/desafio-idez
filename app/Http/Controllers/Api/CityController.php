@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Services\CityService;
-use App\Http\Requests\Api\City\ListCityByState;
+use Illuminate\Http\Request;
+use App\Dtos\GenericDto;
 
 class CityController
 {
@@ -12,10 +13,14 @@ class CityController
     public function __construct()
     {
         $this->service = new CityService();
+        $this->dto = new GenericDto();
     }
 
-    public function listByState(ListCityByState $request)
+    public function listByState($stateAcronym)
     {
-        return $this->service->listByState($request->siglaUf)->getMessageDTO();
+        if (!isset($stateAcronym) && empty($stateAcronym)) {
+            return $this->dto->errorMessage('Favor informar a UF do estado desejado após o list/ .')->getMessageDTO();
+        }
+        return $this->service->listByState($stateAcronym)->getMessageDTO();
     }
 }
